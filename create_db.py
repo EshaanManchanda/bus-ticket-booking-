@@ -1536,8 +1536,9 @@ def create_db():
     con = sqlite3.connect(database=r'ticketing.db')
     cur = con.cursor()
 
-    cur.execute("CREATE TABLE IF NOT EXISTS passenger(pid INTEGER PRIMARY KEY AUTOINCREMENT, fname text, lname text, phone text, email text, fromD text, toD text, totseat text, aduseat text, chiseat text, oldseat  text, type text, mealcost text, totfare text, pstatus text, bookingid text, transacttionid text, class text, noofmeals text, pricepermeal text)")
-
+    cur.execute("CREATE TABLE IF NOT EXISTS passenger(pid INTEGER PRIMARY KEY AUTOINCREMENT, fname text, lname text, phone text, email text, fromD text, toD text, totseat text, aduseat text, chiseat text, oldseat  text, type text, mealcost text, totfare text, pstatus text, bookingid text, transacttionid text, class text, noofmeals text, pricepermeal text,loginDate text, loginTime text)")
+    con.commit()
+    cur.execute("CREATE TABLE IF NOT EXISTS Confirmbooking(pid INTEGER PRIMARY KEY AUTOINCREMENT, fname text, lname text, phone text, email text, fromD text, toD text, totseat text, aduseat text, chiseat text, oldseat  text, type text, mealcost text, totfare text, pstatus text, bookingid text, transacttionid text, class text, noofmeals text, pricepermeal text,loginDate text, loginTime text)")
     con.commit()
 
     cur.execute("CREATE TABLE IF NOT EXISTS bus(fromD text, toD text,kms text, hrs text, departure text, arrival text,type text, totseats text, fare text, mealcost text, petrolrate text)")

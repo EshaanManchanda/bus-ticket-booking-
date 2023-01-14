@@ -1,3 +1,4 @@
+import time
 from tkinter import *
 from tkinter import messagebox
 import sqlite3
@@ -25,9 +26,9 @@ class customerclass:
         self.passe = StringVar()
         self.g = StringVar()
         self.busclass = StringVar()
-        self.location = ['Amaravati', 'Itanagar', 'Dispur', 'Patna', 'Raipur', 'Panaji', 'Gandhinagar', 'Chandigarh', 'Shimla', 'Ranchi', 'Bengaluru',
-                         'Thiruvananthapuram', 'Bhopal', 'Mumbai', 'Imphal', 'Shillong', 'Aizawl', 'Kohima', 'Bhubaneswar', 'Chandigarh', 'Jaipur',
-                         'Gangtok', 'Chennai', 'Hyderabad', 'Agartala', 'Lucknow', 'Dehradun', 'Kolkata']
+        self.location = ['Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jammu and Kashmir', 'Jharkhand', 'Karnataka',
+                         'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha',
+                         'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal']
         self.age = ['1', '2', '3', '4', '5', '6']
         self.adult = IntVar()
         self.child = IntVar()
@@ -192,8 +193,6 @@ class customerclass:
         print(self.meals.get())
         self.to_To.set("Select Destination")
 
-        
-        
     # ---------------All Funtions--------------------------------------------------------------
 
     def addCustomer(self):
@@ -250,7 +249,6 @@ class customerclass:
                     con.commit()
                     messagebox.showinfo(
                         "Message", "Data Submitted", parent=self.root)
-            print(len(self.contact.get()))
             # cur.execute("delete from passenger")
             # con.commit()
         except Exception as ex:
@@ -285,16 +283,12 @@ class customerclass:
                             cur.execute("update passenger set type=?,class=?,aduseat=?, chiseat=?,oldseat=?, totseat=?, fromD=? , toD=?,noofmeals=? where phone=?", (self.g.get(
                             ), self.busclass.get(), self.adult.get(), self.child.get(), self.old.get(), self.passe, self.from_From.get(), self.to_To.get(), feed, self.contact.get()))
                             con.commit()
-                            messagebox.showinfo(
-                                "Message", "Data Submitted", parent=self.root)
+                            messagebox.showinfo("Message", "Data Submitted", parent=self.root)
                             self.fare_opt = 1
                         else:
-                            messagebox.showerror(
-                                "Warning", "Please select meal", parent=self.root)
-
+                            messagebox.showerror("Warning", "Please select meal", parent=self.root)
                 else:
-                    messagebox.showerror(
-                        "Warning", "Please login first , if you login already just add you contact number.", parent=self.root)
+                    messagebox.showerror("Warning", "Please login first , if you login already just add you contact number.", parent=self.root)
         except Exception as ex:
             # con.rollback()
             messagebox.showerror("Message", ex, parent=self.root)
@@ -328,21 +322,22 @@ class customerclass:
         self.fareWin.config(bg="Red")
         self.fareWin.resizable(False, False)
         self.fareWin.focus_force()
+        self.tax = IntVar()
+        self.date_=time.strftime("%d/%m/%Y")
+        self.time_=time.strftime("%I:%M:%S")
+        self.update_fare()
 
-        # self.fr = StringVar()
-        # self.to = StringVar()
-        # self.typ = StringVar()
-        self.rn = StringVar()
-        self.fare = StringVar()
-        self.mc = IntVar()
-        try:
-            con = sqlite3.connect(database=r'ticketing.db')
-            cur = con.cursor()
-            cur.execute("select * from bus where fromD=? and toD=?",(self.from_From.get(),self.to_To.get()))
-            res=cur.fetchall()
-            print(res)
-        except Exception as ex:
-            messagebox.showerror("Message", ex, parent=self.fareWin)
+        # try:
+        #     con = sqlite3.connect(database=r'ticketing.db')
+        #     cur = con.cursor()
+        #     print(self.from_From.get(),self.to_To.get())
+        #     cur.execute("select * from bus where fromD=? and toD=?",
+        #                 (self.from_From.get(), self.to_To.get()))
+        #     print(cur)
+        #     res = cur.fetchone()
+        #     print(res)
+        # except Exception as ex:
+        #     messagebox.showerror("Message", ex, parent=self.fareWin)
 
         self.fr = Frame(self.fareWin, width=800, bd=10,
                         height=50, relief="raised")
@@ -351,66 +346,63 @@ class customerclass:
                           font=('arial', 15, 'bold'), width=15)
         self.frlb.place(x=270, y=0)
 
-
         self.lb = Label(self.fareWin, text="Bus Route", font=(
             'arial', 15, 'bold'), width=20).place(x=19, y=100)
-        self.tx = Label(self.fareWin, font=10, text=self.from_From.get(),width=20)
+        self.tx = Label(self.fareWin, font=10,
+                        text=self.from_From.get(), width=20)
         self.tx.place(x=300, y=100)
-        self.tx2 = Label(self.fareWin, font=10, text=self.to_To.get(),width=20)
+        self.tx2 = Label(self.fareWin, font=10,
+                         text=self.to_To.get(), width=20)
         self.tx2.place(x=550, y=100)
-
 
         self.lb2 = Label(self.fareWin, text="Bus Type", font=(
             'arial', 15, 'bold'), width=20).place(x=19, y=150)
         self.tx2 = Label(self.fareWin, font=10,
-                         text=self.g.get(),width=20).place(x=300, y=150)
-
+                         text=self.g.get(), width=20).place(x=300, y=150)
 
         self.lb3 = Label(self.fareWin, text="Route Number", font=(
             'arial', 15, 'bold'), width=20).place(x=19, y=200)
         self.tx = Label(self.fareWin, font=10,
-                        text=value,width=20).place(x=300, y=200)
+                        text=value, width=20).place(x=300, y=200)
 
         self.lb4 = Label(self.fareWin, text="Per Seat Fare", font=(
             'arial', 15, 'bold'), width=20).place(x=19, y=250)
         self.text1 = Label(self.fareWin, font=(
-            'arial', 15, 'bold'), text=self.fare).place(x=300, y=250)
+            'arial', 15, 'bold'), text=self.perseatfare)
+        self.text1.place(x=300, y=250)
 
-        self.nop = StringVar()
         self.lb5 = Label(self.fareWin, text="Number of Passenger", font=(
             'arial', 15, 'bold'), width=20).place(x=19, y=300)
         self.text2 = Label(self.fareWin, text=self.passe, font=(
-            'arial', 15, 'bold'), width=20).place(x=300, y=300)
+            'arial', 15, 'bold'), width=20)
+        self.text2.place(x=300, y=300)
 
-        self.tsf = StringVar()
         self.lb6 = Label(self.fareWin, text="Total Seat Fare", font=(
             'arial', 15, 'bold'), width=20).place(x=19, y=350)
-        self.tx7 = Entry(self.fareWin, font=10,
-                         textvariable=self.tsf).place(x=300, y=350)
+        self.tx7 = Label(
+            self.fareWin, text=self.total_seat_fare, font=10, width=20)
+        self.tx7.place(x=300, y=350)
 
         self.lb7 = Label(self.fareWin, text="Meal Cost", font=(
             'arial', 15, 'bold'), width=20).place(x=19, y=400)
-        self.tx8 = Entry(self.fareWin, font=10,
-                         textvariable=self.mc).place(x=300, y=400)
-
-        self.tf = StringVar()
+        self.tx81 = Label(self.fareWin, font=10, text=self.mealc, width=20)
+        self.tx81.place(x=300, y=400)
         self.lb8 = Label(self.fareWin, text="Total Fare", font=(
             'arial', 15, 'bold'), width=20).place(x=19, y=450)
-        self.tx9 = Entry(self.fareWin, font=10,
-                         textvariable=self.tf).place(x=300, y=450)
-
-        self.tax = StringVar()
-        self.tax.set("18%")
-        self.lb9 = Label(self.fareWin, text="Tax", font=(
+        self.tx9 = Label(self.fareWin, font=10, text=self.totalF, width=20)
+        self.tx9.place(x=300, y=450)
+        self.lb9 = Label(self.fareWin, text="Tax (@18%)", font=(
             'arial', 15, 'bold'), width=20).place(x=19, y=500)
-        self.tx10 = Entry(self.fareWin, font=10,
-                          textvariable=self.tax).place(x=300, y=500)
+        self.tx10 = Label(self.fareWin, font=10,
+                          text=f"{str(self.tax)}", width=20)
+        self.tx10.place(x=300, y=500)
 
-        self.tpf = StringVar()
         self.lb10 = Label(self.fareWin, text="Total Payble For", font=(
             'arial', 15, 'bold'), width=20).place(x=19, y=550)
-        self.tx10 = Entry(self.fareWin, font=10,
-                          textvariable=self.tpf).place(x=300, y=550)
+        self.tx11 = Label(self.fareWin, font=10,
+                          text=self.total_amt, width=20)
+        self.tx11.place(x=300, y=550)
+
         self.btn = Button(self.fareWin, text="Cancel Trip", font=(
             'arial', 10, 'bold'), command=self.clearb, width=12, bd=8, relief="raised").place(x=50, y=650)
         self.btn = Button(self.fareWin, text="Book", command=self.tick, font=(
@@ -424,17 +416,36 @@ class customerclass:
         if qExit > 0:
             self.root.destroy()
             os.system("python Customerfirst.py")
-            return 
+            return
         else:
             messagebox.showinfo("Message", "Moving to Fare page")
 
     def tick(self):
+        con = sqlite3.connect(database=r'ticketing.db')
+        cur = con.cursor()
+        try:
+            cur.execute("update passenger set mealcost=?,totfare=?,pricepermeal= 150, loginDate=?,loginTime=? where phone=?", (self.mealc, self.total_amt,self.date_,self.time_, self.contact.get()))
+            con.commit()
+        except Exception as ex:
+            messagebox.showerror("Warning", ex, parent=self.fareWin)
         self.fareWin.destroy()
-        os.system("ticket3.py")  # pay
+        os.system("python ticket3.py") 
+        cur.execute("update passenger set loginDate=NULL,loginTime=NULL where phone=?",(self.contact.get(),))
+        con.commit() # pay
+        con.close()
 
     def close(self):
         self.root.destroy()
-        os.system(" python Customerfirst.py") # re book
+        os.system(" python Customerfirst.py")  # re book
+
+    def update_fare(self):
+        pass
+        self.perseatfare = 500
+        self.total_seat_fare = self.perseatfare*self.passe
+        self.mealc = self.feed.get()*150
+        self.totalF = self.total_seat_fare+self.mealc
+        self.tax = 18/100*self.totalF
+        self.total_amt = self.totalF+self.tax
 
         # -------------------------------------------------------------------------------------------------
 
