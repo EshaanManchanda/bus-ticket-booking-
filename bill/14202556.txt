@@ -1,0 +1,17 @@
+
+	Tech Love V- Online Bus ticket booking
+	 Phone No. 83*******0, Delhi-110018
+========================================
+ Customer Name: Banti jha
+ Ph no. : 1234567890
+ Bill No. : 14202556			Date: 14/01/2023
+========================================
+        
+Banti jha 0			Rs. 767.0
+Banti jha 1			Rs. 767.0
+Banti jha 2			Rs. 767.0
+========================================
+ Net Pay (Includeing gst)		Rs.2301.0
+========================================
+
+        

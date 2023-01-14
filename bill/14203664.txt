@@ -1,0 +1,18 @@
+
+	Tech Love V- Online Bus ticket booking
+	 Phone No. 83*******0, Delhi-110018
+========================================
+ Customer Name: Madhav Sharma
+ Ph no. : 1234567899
+ Bill No. : 14203664			Date: 14/01/2023
+========================================
+        
+Madhav Sharma 0			Rs. 767.0
+Madhav Sharma 1			Rs. 767.0
+Madhav Sharma 2			Rs. 767.0
+Madhav Sharma 3			Rs. 767.0
+========================================
+ Net Pay (Includeing gst)		Rs.3068.0
+========================================
+
+        

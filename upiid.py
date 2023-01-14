@@ -56,7 +56,7 @@ class upi:
                 messagebox.showerror("Error",ex,parent=self.win)
             messagebox.showinfo("Successfully","payment done successfully",parent=self.win)
             self.win.destroy()
-            os.system("python Customerfirst.py")
+            os.system("python printticket.py")
         con.close()
 if __name__ == "__main__":
     root = Tk()

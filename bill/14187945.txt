@@ -1,0 +1,16 @@
+
+	Tech Love V- Online Bus ticket booking
+	 Phone No. 83*******0, Delhi-110018
+========================================
+ Customer Name: Eshaan Manchanda
+ Ph no. : 8377012270
+ Bill No. : 14187945			Date: 14/01/2023
+========================================
+        
+Eshaan Manchanda 0			Rs. 590.0
+Eshaan Manchanda 1			Rs. 590.0
+========================================
+ Net Pay (Includeing gst)		Rs.1180.0
+========================================
+
+        
