@@ -123,6 +123,7 @@ class creditcard:
             new_file = tempfile.mktemp('.txt')
             open(new_file, 'w').write(self.text_bill_area.get('1.0', END))
             os.startfile(new_file, 'print')
+            self.root.destroy()
         else:
             messagebox.showerror(
                 "Print", "Please generate ticket , to print recipt", parent=self.root)

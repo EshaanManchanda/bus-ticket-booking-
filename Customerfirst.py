@@ -439,14 +439,25 @@ class customerclass:
         os.system(" python Customerfirst.py")  # re book
 
     def update_fare(self):
-        pass
-        self.perseatfare = 500
+        con = sqlite3.connect(database=r'ticketing.db')
+        cur = con.cursor()
+        try:
+            cur.execute(f"select * from bus where fromD lIKE '%{str(self.from_From.get())}%' and toD LIKE '%{str(self.to_To.get())}%'")
+            self.bus_data=cur.fetchone()
+        except Exception as ex:
+            messagebox.showerror("Warning", ex, parent=self.fareWin)
+        kms=float(self.bus_data[2])
+        petrol=float(self.bus_data[10])
+        totseat=float(self.bus_data[7])
+        mc=float(self.bus_data[9])
+        totalTC=kms*petrol
+        self.perseatfare=totalTC/totseat
         self.total_seat_fare = self.perseatfare*self.passe
-        self.mealc = self.feed.get()*150
+        self.mealc = self.feed.get()*mc
         self.totalF = self.total_seat_fare+self.mealc
         self.tax = 18/100*self.totalF
         self.total_amt = self.totalF+self.tax
-
+        con.close()
         # -------------------------------------------------------------------------------------------------
 
 
